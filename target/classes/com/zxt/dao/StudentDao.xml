@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxt.dao.StudentDao">
+
+    <select id="selectStudents" resultType="com.zxt.entity.Student">
+        select * from student order by sno
+    </select>
+    <insert id="insertStudent">
+        insert into student values(#{sno},#{sname},#{email},#{sex},#{age})
+    </insert>
+
+    <select id="selectAll" resultType="com.zxt.entity.Student">
+        select * from student order by sno
+    </select>
+
+    <select id="selectBySno" resultType="com.zxt.entity.Student">
+        select * from student where sno = #{sno}
+    </select>
+
+    <select id="selectBySnoOrSname" resultType="com.zxt.entity.Student">
+        select * from student where sno = #{sno} or sname = #{sname}
+    </select>
+
+    <select id="selectByOne" resultType="com.zxt.entity.Student">
+        select * from student
+        <where>
+            <if test="sno != null and sno != ''">
+                sno = #{sno}
+            </if>
+            <if test="age >20">
+                or age > #{age}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectByTwo" resultType="com.zxt.entity.Student">
+        select * from student where sno in 
+        <foreach collection="list" item="sno" open="(" close=")" separator=",">
+            #{sno}
+        </foreach>
+    </select>
+</mapper>
