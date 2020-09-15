@@ -25,4 +25,6 @@ public interface StudentDao {
 
     //<foreach>标签
     List<Student> selectByTwo(List list);
+    //
+    List<Student> newSelectStudents();
 }
